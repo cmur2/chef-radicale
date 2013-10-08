@@ -15,7 +15,8 @@ default['radicale']['config'] = {
     'stock' => 'utf-8'
   },
   'auth' => {
-    'type' => 'None'
+    'type' => 'None',
+    'htpasswd_filename' => '/opt/radicale/users' # unused by default
   },
   'rights' => {
     'type' => 'None',
@@ -64,3 +65,7 @@ default['radicale']['logging'] = { # don't modify, cookbook manages this
     'format' => '%(asctime)s - %(levelname)s: %(message)s'
   }
 }
+
+default['radicale']['users'] = {}
+
+default['radicale']['rights'] = {}

@@ -42,6 +42,34 @@ file "/opt/radicale/logging" do
   notifies :restart, "service[radicale]"
 end
 
+if not node['radicale']['users'].empty?
+  htpasswd_content = []
+  
+  node['radicale']['users'].each do |user,password|
+    htpasswd_content << "#{user}:#{password}"
+  end
+
+  htpasswd_content << ''
+
+  file node['radicale']['config']['auth']['htpasswd_filename'] do
+    content htpasswd_content.join("\n")
+    owner "root"
+    group "root"
+    mode 00640
+    notifies :restart, "service[radicale]"
+  end
+end
+
+if not node['radicale']['rights'].empty?
+  file node['radicale']['config']['rights']['file'] do
+    content generate_radicale_rights(node['radicale']['rights'])
+    owner "root"
+    group "root"
+    mode 00644
+    # no restart required as per doc
+  end
+end
+
 template "/etc/init.d/radicale" do
   source "radicale.init.erb"
   owner "root"
