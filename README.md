@@ -12,6 +12,8 @@ Use `recipe[radicale::default]` for installing and configuring Radicale includin
 
 No support for SSL key and cert handling yet, use a proxy or write an issue.
 
+No support for installing [additionally needed modules](http://radicale.org/user_documentation/#idid50) yet.
+
 ## Requirements
 
 ### Platform
