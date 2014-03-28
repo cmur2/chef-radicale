@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'chef', '~> 10.0'
+gem 'chef', '~> 10.0', '< 10.30.4'
 
 gem 'rake'
-gem 'foodcritic', :platform => :ruby_19
+gem 'foodcritic', '~> 3.0', :platform => :ruby_19
 gem 'chefspec'
 gem 'librarian-chef', :platform => :ruby_19
 
