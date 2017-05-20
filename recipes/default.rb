@@ -70,6 +70,11 @@ if not node['radicale']['rights'].empty?
   end
 end
 
+execute "systemctl-daemon-reload" do
+  command "systemctl daemon-reload || true"
+  action :nothing
+end
+
 template "/etc/init.d/radicale" do
   source "radicale.init.erb"
   owner "root"
@@ -78,6 +83,7 @@ template "/etc/init.d/radicale" do
   variables ({
     :daemon => node['radicale']['daemon_binary']
   })
+  notifies :run, "execute[systemctl-daemon-reload]", :immediately
   notifies :restart, "service[radicale]"
 end
 
