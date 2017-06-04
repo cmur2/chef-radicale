@@ -2,7 +2,8 @@
 include_recipe "python"
 
 python_pip 'radicale' do
-  action :install
+  version node['radicale']['version'] if node['radicale'].has_key?('version')
+  action :upgrade
 end
 
 user "radicale"
@@ -44,7 +45,7 @@ end
 
 if not node['radicale']['users'].empty?
   htpasswd_content = []
-  
+
   node['radicale']['users'].each do |user,password|
     htpasswd_content << "#{user}:#{password}"
   end
@@ -90,4 +91,3 @@ end
 service "radicale" do
   action [:enable, :start]
 end
-
